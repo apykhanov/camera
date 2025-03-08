@@ -1,11 +1,15 @@
 import Banner from '../../components/banner/banner.tsx';
 import Footer from '../../components/footer/footer.tsx';
 import Breadcrumbs from '../../components/breadcrumbs/breadcrumbs.tsx';
-import ProductCard from '../../components/product-card/product-card.tsx';
 import Header from '../../components/header/header.tsx';
+import ProductCardList from '../../components/product-card-list/product-card-list.tsx';
+import {useAppSelector} from '../../hooks/use-app-selector.tsx';
+import {getCameras} from '../../store/goods/selector.ts';
 
 
 export default function Catalog() {
+  const cards = useAppSelector(getCameras);
+
   return (
     <div className="wrapper">
       <Header/>
@@ -23,9 +27,7 @@ export default function Catalog() {
                 </div>
                 <div className="catalog__content">
                   {/*<CatalogSort/>*/}
-                  <div className="cards catalog__cards">
-                    <ProductCard/>
-                  </div>
+                  <ProductCardList cards={cards} />
                   {/*<Pagination/>*/}
                 </div>
               </div>

@@ -1,7 +1,21 @@
 
 
-export default function ProductCard() {
+import { Goods } from '../../types/goods.ts';
 
+type ProductCardProps = {
+  card: Goods;
+}
+
+export default function ProductCard({ card }: ProductCardProps) {
+  const {
+    name,
+    description,
+    price,
+    previewImg,
+    previewImg2x,
+    previewImgWebp,
+    previewImgWebp2x
+  } = card;
 
   return (
     <div className="product-card">
@@ -9,26 +23,26 @@ export default function ProductCard() {
         <picture>
           <source
             type="image/webp"
-            srcSet="img/content/das-auge.webp, img/content/das-auge@2x.webp 2x"
+            srcSet={`../${previewImgWebp}, ../${previewImgWebp2x} 2x`}
           />
           <img
-            src="img/content/das-auge.jpg"
-            srcSet="img/content/das-auge@2x.jpg 2x"
-            width="280"
-            height="240"
-            alt="Ретрокамера «Das Auge IV»"
+            src={`../${previewImg}`}
+            srcSet={`../${previewImg2x} 2x`}
+            width={280}
+            height={240}
+            alt={description}
           />
         </picture>
       </div>
       <div className="product-card__info">
         <div className="rate product-card__rate">
           {[...Array(3)].map((_, i) => (
-            <svg key={i} width="17" height="16" aria-hidden="true">
+            <svg key={`full-star-${i}`} width="17" height="16" aria-hidden="true">
               <use href="#icon-full-star"></use>
             </svg>
           ))}
           {[...Array(2)].map((_, i) => (
-            <svg key={i} width="17" height="16" aria-hidden="true">
+            <svg key={`star-${i}`} width="17" height="16" aria-hidden="true">
               <use href="#icon-star"></use>
             </svg>
           ))}
@@ -37,9 +51,10 @@ export default function ProductCard() {
             <span className="visually-hidden">Всего оценок:</span>23
           </p>
         </div>
-        <p className="product-card__title">Ретрокамера «Das Auge IV»</p>
+        <p className="product-card__title">{name}</p>
         <p className="product-card__price">
-          <span className="visually-hidden">Цена:</span>73 450 ₽
+          <span className="visually-hidden">Цена:</span>
+          {price} ₽
         </p>
       </div>
       <div className="product-card__buttons">
