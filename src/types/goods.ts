@@ -14,3 +14,9 @@ export type Goods = {
       'previewImgWebp': string;
       'previewImgWebp2x': string;
 }
+
+export type Order = {
+  'camerasIds': number[];
+  'coupon': string | null;
+  'tel': string;
+}

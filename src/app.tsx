@@ -4,6 +4,7 @@ import {AppRoute} from './const.ts';
 import ProductPage from './pages/product-page/product-page.tsx';
 import HistoryRouter from './components/history-router/history-router.tsx';
 import browserHistory from './browser-history/browser-history.ts';
+import NotFound from './pages/not-found/not-found.tsx';
 
 
 export default function App() {
@@ -17,6 +18,10 @@ export default function App() {
         <Route
           path={`${AppRoute.ProductPage}/:id`}
           element={<ProductPage/>}
+        />
+        <Route
+          path="*"
+          element={<NotFound/>}
         />
       </Routes>
     </HistoryRouter>

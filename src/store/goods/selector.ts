@@ -1,4 +1,4 @@
-import {State} from '../../types/state.ts';
+import {RequestStatus, State} from '../../types/state.ts';
 import {Goods} from '../../types/goods.ts';
 import {NameSpace} from '../../const.ts';
 
@@ -19,3 +19,6 @@ export const getSimilarCamerasLoadingStatus = (state : State) : boolean =>
 
 export const getCamerasDetail = (state: State):Goods | null =>
   state[NameSpace.Cameras].camerasDetail;
+
+export const sendOrderStatus = (state: State): boolean =>
+  state[NameSpace.Cameras].submitOrderStatus === RequestStatus.Loading;
