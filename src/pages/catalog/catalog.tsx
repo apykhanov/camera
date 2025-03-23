@@ -1,4 +1,3 @@
-import Banner from '../../components/banner/banner.tsx';
 import Footer from '../../components/footer/footer.tsx';
 import Header from '../../components/header/header.tsx';
 import {useAppSelector} from '../../hooks/use-app-selector.tsx';
@@ -6,6 +5,8 @@ import {getCameras} from '../../store/goods/selector.ts';
 import {useState} from 'react';
 import {ContactModal} from '../../components/contact-modal/contact-modal.tsx';
 import ProductCard from '../../components/product-card/product-card.tsx';
+import {Breadcrumbs} from '../../components/breadcrumbs/breadcrumbs.tsx';
+import Slider from '../../components/slider/slider.tsx';
 
 
 export default function Catalog() {
@@ -14,22 +15,22 @@ export default function Catalog() {
   const products = useAppSelector(getCameras);
 
   const handleOrderClick = (product) => {
-    setSelectedProduct(product); // Устанавливаем выбранный товар
-    setIsModalOpen(true); // Открываем модальное окно
+    setSelectedProduct(product);
+    setIsModalOpen(true);
   };
 
   const handleCloseModal = () => {
     setIsModalOpen(false);
-    setSelectedProduct(null); // Очищаем выбранный товар
+    setSelectedProduct(null);
   };
 
   return (
     <div className="wrapper">
       <Header/>
       <main>
-        <Banner/>
+        <Slider/>
         <div className="page-content">
-          {/*<Breadcrumbs/>*/}
+          {<Breadcrumbs/>}
           <section className="catalog">
             <div className="container">
               <h1 className="title title--h2">Каталог фото- и видеотехники</h1>

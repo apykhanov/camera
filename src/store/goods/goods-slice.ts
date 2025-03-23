@@ -1,12 +1,13 @@
 import {createSlice} from '@reduxjs/toolkit';
 import {NameSpace} from '../../const.ts';
-import {fetchCameras, fetchCamerasDetails, fetchSimilarCameras, submitOrder} from '../api-actions.ts';
-import {Goods, Order} from '../../types/goods.ts';
+import {fetchCameras, fetchCamerasDetails, fetchPromo, fetchSimilarCameras, submitOrder} from '../api-actions.ts';
+import {Goods, Order, Promo} from '../../types/goods.ts';
 import {RequestStatus} from '../../types/state.ts';
 
 type GoodsData = {
   cameras: Goods[];
   order: Order[];
+  promo: Promo[];
   isCamerasDataLoading: boolean;
   hasError: boolean;
   loading: boolean;
@@ -17,11 +18,13 @@ type GoodsData = {
   isSimilarCamerasLoading: boolean;
   isCamerasDetailLoading: boolean;
   submitOrderStatus: RequestStatus;
+  fetchPromoStatus: RequestStatus;
 };
 
 const initialState: GoodsData = {
   cameras: [],
   order: [],
+  promo: [],
   isCamerasDataLoading: false,
   hasError: false,
   loading: false,
@@ -32,6 +35,7 @@ const initialState: GoodsData = {
   isSimilarCamerasLoading: false,
   isCamerasDetailLoading: false,
   submitOrderStatus: RequestStatus.Idle,
+  fetchPromoStatus: RequestStatus.Idle,
 };
 
 export const goodsSlice = createSlice({
@@ -82,6 +86,18 @@ export const goodsSlice = createSlice({
       })
       .addCase(submitOrder.rejected, (state) => {
         state.submitOrderStatus = RequestStatus.Error;
-      });
+      })
+      .addCase(fetchPromo.pending, (state) => {
+        state.fetchPromoStatus = RequestStatus.Loading;
+        state.hasError = false;
+      })
+      .addCase(fetchPromo.fulfilled, (state, action) => {
+        state.promo = action.payload;
+        state.fetchPromoStatus = RequestStatus.Success
+      })
+      .addCase(fetchPromo.rejected, (state) => {
+        state.fetchPromoStatus = RequestStatus.Error
+        state.hasError = true;
+      })
   }
 });

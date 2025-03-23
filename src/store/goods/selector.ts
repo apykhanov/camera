@@ -1,5 +1,5 @@
 import {RequestStatus, State} from '../../types/state.ts';
-import {Goods} from '../../types/goods.ts';
+import {Goods, Promo} from '../../types/goods.ts';
 import {NameSpace} from '../../const.ts';
 
 export const getCameras = (state: State): Goods[] =>
@@ -22,3 +22,9 @@ export const getCamerasDetail = (state: State):Goods | null =>
 
 export const sendOrderStatus = (state: State): boolean =>
   state[NameSpace.Cameras].submitOrderStatus === RequestStatus.Loading;
+
+export const getPromo = (state: State): Promo[] =>
+  state[NameSpace.Cameras].promo;
+
+export const getPromoLoadingStatus = (state: State): boolean =>
+  state[NameSpace.Cameras].fetchPromoStatus === RequestStatus.Loading;

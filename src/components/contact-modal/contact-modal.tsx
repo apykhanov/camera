@@ -5,7 +5,6 @@ import { useAppSelector } from '../../hooks/use-app-selector.tsx';
 import { sendOrderStatus } from '../../store/goods/selector.ts';
 import { useAppDispatch } from '../../hooks/use-app-dispatch.tsx';
 import { submitOrder } from '../../store/api-actions.ts';
-import { useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
 type ContactModalProps = {

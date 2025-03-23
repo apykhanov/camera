@@ -1,5 +1,5 @@
 import {createAsyncThunk} from '@reduxjs/toolkit';
-import {Goods, Order} from '../types/goods.ts';
+import {Goods, Order, Promo} from '../types/goods.ts';
 import {ThunkOptions} from '../types/state.ts';
 import {APIRoute, AppRoute} from '../const.ts';
 import axios from 'axios';
@@ -54,3 +54,12 @@ export const submitOrder = createAsyncThunk<Order, Order, ThunkOptions>(
     return data;
   }
 );
+
+export const fetchPromo  = createAsyncThunk<Promo[], string, ThunkOptions>(
+  'goods/fetchPromo',
+  async (_arg, {extra: api}) => {
+    const {data} = await api.get<Promo[]>(APIRoute.Promo);
+    return data;
+  }
+);
+

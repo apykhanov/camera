@@ -1,15 +1,21 @@
 import Header from '../../components/header/header.tsx';
 import Footer from '../../components/footer/footer.tsx';
 import { useParams } from 'react-router-dom';
-import { getCamerasDataLoadingStatus, getCamerasDetail } from '../../store/goods/selector.ts';
+import {
+  getCamerasDataLoadingStatus,
+  getCamerasDetail,
+  getSimilarCameras
+} from '../../store/goods/selector.ts';
 import { getReviews, getReviewsLoadingStatus } from '../../store/reviews/selector.ts';
 import {useEffect, useState} from 'react';
-import { fetchCameraReviews, fetchCamerasDetails } from '../../store/api-actions.ts';
+import {fetchCameraReviews, fetchCamerasDetails, fetchSimilarCameras} from '../../store/api-actions.ts';
 import ReviewList from '../../components/review-list/reviews-list.tsx';
 import ProductInfo from '../../components/product-info/product-info.tsx';
 import {useAppDispatch} from '../../hooks/use-app-dispatch.tsx';
 import {useAppSelector} from '../../hooks/use-app-selector.tsx';
 import NotFound from '../not-found/not-found.tsx';
+import {Breadcrumbs} from '../../components/breadcrumbs/breadcrumbs.tsx';
+import ProductSimilar from '../../components/product-similar/product-similar.tsx';
 
 export default function ProductPage() {
   const [visibleReviewsCount, setVisibleReviewsCount] = useState(3);
@@ -19,10 +25,9 @@ export default function ProductPage() {
   const reviews = useAppSelector(getReviews);
   const isReviewsLoading = useAppSelector(getReviewsLoadingStatus);
   const isCameraDetailLoading = useAppSelector(getCamerasDataLoadingStatus);
-
   const shouldShowButton = false;
-
   const visibleReviews = reviews.slice(0, visibleReviewsCount);
+  const similarCameras = useAppSelector(getSimilarCameras);
   const handleShowMoreReviews = () => {
     setVisibleReviewsCount((prevCount) => prevCount + 3);
   };
@@ -31,6 +36,7 @@ export default function ProductPage() {
     if (id) {
       dispatch(fetchCamerasDetails(id));
       dispatch(fetchCameraReviews(id));
+      dispatch(fetchSimilarCameras(id))
     }
   }, [dispatch, id]);
 
@@ -70,13 +76,7 @@ export default function ProductPage() {
       <Header/>
       <main>
         <div className="page-content">
-          {/*<Breadcrumbs*/}
-          {/*  items={[*/}
-          {/*    { label: 'Главная', href: '#' },*/}
-          {/*    { label: 'Каталог', href: AppRoute.Root },*/}
-          {/*    { label: name, isActive: true }*/}
-          {/*  ]}*/}
-          {/*/>*/}
+          <Breadcrumbs productName={name}/>
           <div className="page-content__section">
             <section className="product">
               <div className="container">
@@ -111,7 +111,7 @@ export default function ProductPage() {
             </section>
           </div>
           <div className="page-content__section">
-            {/*<ProductSimilar/>*/}
+            <ProductSimilar product={similarCameras}/>
           </div>
           <div className="page-content__section">
             <section className="review-block">
