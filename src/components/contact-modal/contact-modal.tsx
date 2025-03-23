@@ -21,7 +21,6 @@ export function ContactModal({ isOpen, onClose, product }: ContactModalProps) {
   const isLoading = useAppSelector(sendOrderStatus);
   const dispatch = useAppDispatch();
 
-
   const validatePhone = (value: string) => {
     const regex = /^(\+7|8)[\s-]?\(?\d{3}\)?[\s-]?\d{3}[\s-]?\d{2}[\s-]?\d{2}$/;
     if (!regex.test(value)) {
@@ -30,17 +29,14 @@ export function ContactModal({ isOpen, onClose, product }: ContactModalProps) {
     return '';
   };
 
-
   const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
+    const value = e.target.value.replace(/[^0-9+\-()\s]/g, '');
     setPhone(value);
     setPhoneError(validatePhone(value));
   };
 
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
 
     const error = validatePhone(phone);
     if (error) {
@@ -64,7 +60,6 @@ export function ContactModal({ isOpen, onClose, product }: ContactModalProps) {
       toast.error('Ошибка при отправке заказа');
     }
   };
-
 
   useEffect(() => {
     const handleEscape = (e: KeyboardEvent) => {
@@ -90,7 +85,6 @@ export function ContactModal({ isOpen, onClose, product }: ContactModalProps) {
       onClose();
     }
   };
-
 
   if (!isOpen) {
     return null;

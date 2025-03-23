@@ -4,8 +4,8 @@ import {AppRoute} from '../../const.ts';
 
 type ProductCardProps = {
   card: Goods;
-  onClick: (event: MouseEvent) => void;
-}
+  onClick: (card: Goods) => void;
+};
 
 export default function ProductCard({card, onClick}: ProductCardProps) {
   const {
@@ -38,13 +38,12 @@ export default function ProductCard({card, onClick}: ProductCardProps) {
       </div>
       <div className="product-card__info">
         <div className="rate product-card__rate">
-          {[...Array(3)].map((_, i) => (
+          {Array.from({ length: 3 }, (_, i) => (
             <svg key={`full-star-${i}`} width="17" height="16" aria-hidden="true">
               <use href="#icon-full-star"></use>
             </svg>
           ))}
-          {[...Array(2)].map((_, i) => (
-
+          {Array.from({ length: 2 }, (_, i) => (
             <svg key={`star-${i}`} width="17" height="16" aria-hidden="true">
               <use href="#icon-star"></use>
             </svg>

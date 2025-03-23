@@ -2,12 +2,10 @@ export enum AppRoute {
   ProductPage = '/camera',
   Root = '/',
   NotFound = '/not-found',
-  Product = '/product'
 }
 
 export enum APIRoute {
   Cameras = '/cameras',
-  Review = '/reviews',
   Order= '/orders',
   Promo= '/promo',
 }

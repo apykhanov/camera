@@ -6,16 +6,18 @@ import { getPromo, getPromoLoadingStatus } from '../../store/goods/selector';
 import { fetchPromo } from '../../store/api-actions';
 import { Promo } from '../../types/goods.ts';
 import { useEffect } from 'react';
-import { redirectToRoute } from '../../store/action.ts';
+
 import './slider.module.css';
 import {useAppDispatch} from '../../hooks/use-app-dispatch.tsx';
 import {AppRoute} from '../../const.ts';
+import {useNavigate} from 'react-router-dom';
 
 const Slider = () => {
   const dispatch = useAppDispatch();
   const slides = useAppSelector(getPromo);
   const isLoading = useAppSelector(getPromoLoadingStatus);
   const isError = useAppSelector(getPromoLoadingStatus);
+  const navigate = useNavigate();
 
   const MAX_SLIDES_AMOUNT = 3;
 
@@ -76,7 +78,7 @@ const Slider = () => {
               <span className="banner__text">Профессиональная камера от известного производителя</span>
               <button
                 className="btn"
-                onClick={() => dispatch(redirectToRoute(`${AppRoute.Product}${slide.id}`))}
+                onClick={() => navigate(`${AppRoute.ProductPage}/${slide.id}`)}
               >
                 Подробнее
               </button>
