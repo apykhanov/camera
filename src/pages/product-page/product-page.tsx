@@ -36,7 +36,7 @@ export default function ProductPage() {
     if (id) {
       dispatch(fetchCamerasDetails(id));
       dispatch(fetchCameraReviews(id));
-      dispatch(fetchSimilarCameras(id))
+      dispatch(fetchSimilarCameras(id));
     }
   }, [dispatch, id]);
 
